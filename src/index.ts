@@ -17,10 +17,10 @@ class Handler<T> {
   public init<T>(options: HandlerOptions<T>) {
     this.hasInit = true;
     if (options.defaultIdentifier) {
-        this.defaultIdentifier = options.defaultIdentifier;
+        // this.defaultIdentifier = options.defaultIdentifier;
     }
 
-    this.applicants = options.applicants;
+    // this.applicants = options.applicants;
   }
 
   public register<T>(...args: T[]): string {
@@ -34,4 +34,4 @@ class Handler<T> {
   }
 }
 
-export default new Handler<HandlerOptions>();
+export default Handler;
