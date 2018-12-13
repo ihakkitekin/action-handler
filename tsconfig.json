@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "outDir": "./lib/",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "module": "commonjs",
     "target": "es5",
-    "lib": ["es5", "es6"],
-    "declaration": true
+    "lib": ["es5", "es6", "dom"],
+    "declaration": true,
+    "noStrictGenericChecks": true
   },
   "include": ["./src/**/*"]
 }
