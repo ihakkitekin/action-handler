@@ -1,38 +1,36 @@
-export type HandlerOptions<TType> = {
-  applicants: TType[];
-  identifier: TType;
-  defaultIdentifier?: TType;
+export type HandlerOptions<T> = {
+  applicants: T[];
+  identifier: T;
+  defaultIdentifier?: T;
   identifierProp: string;
 };
 
 export default class Handler<T> {
   private winnerIndex: number;
   applicants: T[];
-  identifier: T;
   defaultIdentifier?: T;
+  identifier: T;
   identifierProp: string;
 
   constructor(options: HandlerOptions<T>){
-    if (options.defaultIdentifier) {
-      this.defaultIdentifier = options.defaultIdentifier;
-    }
-
-    this.identifier = options.identifier;
     this.applicants = options.applicants;
+    this.defaultIdentifier = options.defaultIdentifier;
+    this.identifier = options.identifier;
     this.identifierProp = options.identifierProp;
     this.winnerIndex = this.getWinnerIndex();
+    
+    if (this.winnerIndex < 0) {
+      throw Error("You dont have a valid identifier");
+    }
   }
-
   
   /**
-   * Registers an argument from given arguments based on the config
+   * Registers an argument from given arguments based on the winner applicant
    * @param  {T[]} ...args
    * @returns T
    */
   public register = <T>(...args: T[]): T => {
-    let result: T;
-
-    result = args[this.winnerIndex];
+    let result: T = args[this.winnerIndex];
 
     return result;
   };
@@ -46,10 +44,6 @@ export default class Handler<T> {
 
     if (!winner && this.defaultIdentifier) {
       winner = this.getWinner(this.defaultIdentifier);
-    }
-
-    if (!winner) {
-      throw new Error("You dont have a valid identifier");
     }
 
     return this.applicants.indexOf(winner);
