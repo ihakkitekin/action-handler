@@ -48,9 +48,9 @@ describe("Handler tests", () => {
     const handler = new Handler<Storefront>(options);
 
     // act
-    const result = handler.register<string>("url1", "url2");
+    const result = handler.register<string>("arg1", "arg2");
 
     // assert
-    expect(result).toBe("url1");
+    expect(result).toBe("arg1");
   });
 });
