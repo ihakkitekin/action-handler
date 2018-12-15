@@ -13,6 +13,12 @@ export default class Handler<T> {
   identifierProp: string;
 
   constructor(options: HandlerOptions<T>){
+    // bind methods
+    this.register = this.register.bind(this);
+    this.getWinnerIndex = this.getWinnerIndex.bind(this);
+    this.getWinner = this.getWinner.bind(this);
+
+    // define properties
     this.applicants = options.applicants;
     this.defaultIdentifier = options.defaultIdentifier;
     this.identifier = options.identifier;
@@ -29,7 +35,7 @@ export default class Handler<T> {
    * @param  {T[]} ...args
    * @returns T
    */
-  public register = <T>(...args: T[]): T => {
+  public register<T>(...args: T[]): T {
     let result: T = args[this.winnerIndex];
 
     return result;
@@ -39,7 +45,7 @@ export default class Handler<T> {
    * Returns the index of the winner applicant
    * @returns number
    */
-  private getWinnerIndex = (): number => {
+  private getWinnerIndex(): number {
     let winner = this.getWinner(this.identifier);
 
     if (!winner && this.defaultIdentifier) {
@@ -55,7 +61,7 @@ export default class Handler<T> {
    * @param  {result of the array operation} applicantToFind
    * @returns T
    */
-  private getWinner = (applicantToFind): T => {
+  private getWinner(applicantToFind): T {
     return this.applicants.find(
       (applicant): boolean => {
         return (
