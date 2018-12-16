@@ -69,7 +69,7 @@ export default class Handler<T> {
 
       let method = descriptor.value;
       descriptor.value = (...args: any[]) => {
-        args.push({ item });
+        args.push(item);
         return method.apply(this, args);
       };
       // this is the decorator
