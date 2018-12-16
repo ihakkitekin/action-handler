@@ -2,12 +2,13 @@
   "compilerOptions": {
     "outDir": "./lib/",
     "noImplicitAny": false,
-    "module": "commonjs",
     "target": "es5",
+    "module": "commonjs",
     "lib": ["es5", "es6", "dom"],
     "declaration": true,
     "noStrictGenericChecks": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "moduleResolution": "classic"
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],  
 }
