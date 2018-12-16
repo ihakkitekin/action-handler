@@ -48,33 +48,35 @@ export default class Handler<T> {
   }
 
   /**
-   * Registers an argument from given arguments based on the winner applicant
+   * Injects an argument to given function based on given key
    * @param  {T[]} ...args
    * @returns T
    */
   public injectArgument(key: string): Function {
     const item: storeItem = this.store.find(item => item.key === key);
+
     if (!item) {
       throw Error(`No item with key: ${key}`);
     }
 
-    return function(
+    const result = function(
       target: any,
       property: string,
       descriptor: TypedPropertyDescriptor<Function>
     ) {
       if (descriptor === undefined) {
-        descriptor = Object.getOwnPropertyDescriptor(target, property);
+        throw Error(`injectArgument can only be used for 'function' type.`);
       }
 
       let method = descriptor.value;
+
       descriptor.value = (...args: any[]) => {
         args.push(item);
         return method.apply(this, args);
       };
-      // this is the decorator
-      // do something with 'target' and 'value'...
     };
+
+    return result;
   }
 
   /**
