@@ -53,7 +53,7 @@ handler.register<string>('item2', item1, item2);
 export default handler;
 ```
 
-Daha sonra method tanımlarken kullanılabilir.
+Daha sonra method tanımlarken kullanılabilir(test bir class methodudur).
 
 ```typescript
 @handler.injectArgument('item') // first executed
