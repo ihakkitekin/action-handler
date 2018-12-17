@@ -1,6 +1,6 @@
 {
-  "prettier.singleQuote": true,
-  "prettier.trailingComma": "none",
-  "prettier.printWidth": 80,
-  "prettier.semi": true
+  "singleQuote": true,
+  "trailingComma": "none",
+  "printWidth": 80,
+  "semi": true
 }

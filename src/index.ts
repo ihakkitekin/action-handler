@@ -1,15 +1,24 @@
-export type HandlerOptions<T> = {
+export interface HandlerOptions<T> {
   applicants: T[];
   identifier: T;
   defaultIdentifier?: T;
   identifierProp: string;
-};
+}
 
-type storeItem = { key: string; value: any };
+interface StoreItem {
+  key: string;
+  value: any;
+}
+
+type injectArgumentResultType = (
+  target: any,
+  property: string,
+  descriptor: TypedPropertyDescriptor<(...args: any[]) => void>
+) => void;
 
 export default class Handler<T> {
   private winnerIndex: number;
-  private store: storeItem[];
+  private store: StoreItem[];
   private applicants: T[];
   private defaultIdentifier?: T;
   private identifier: T;
@@ -31,7 +40,7 @@ export default class Handler<T> {
     this.store = [];
 
     if (this.winnerIndex < 0) {
-      throw Error("You dont have a valid identifier");
+      throw Error('You dont have a valid identifier');
     }
   }
 
@@ -40,8 +49,8 @@ export default class Handler<T> {
    * @param  {T[]} args
    * @returns T
    */
-  public register<T>(key: string, ...args: T[]): void {
-    let result: T = args[this.winnerIndex];
+  public register<TArg>(key: string, ...args: TArg[]): void {
+    const result: TArg = args[this.winnerIndex];
     this.store.push({ key, value: result });
   }
 
@@ -50,8 +59,8 @@ export default class Handler<T> {
    * @param  {string} key
    * @returns Function
    */
-  public injectArgument(key: string): Function {
-    const item: storeItem = this.store.find(item => item.key === key);
+  public injectArgument(key: string): injectArgumentResultType {
+    const item: StoreItem = this.store.find(i => i.key === key);
 
     if (!item) {
       throw Error(`No item with key: ${key}`);
@@ -60,13 +69,13 @@ export default class Handler<T> {
     const result = function(
       target: any,
       property: string,
-      descriptor: TypedPropertyDescriptor<Function>
+      descriptor: TypedPropertyDescriptor<((...args: any[]) => void)>
     ) {
       if (descriptor === undefined) {
         throw Error(`injectArgument can only be used for 'function' type.`);
       }
 
-      let method = descriptor.value;
+      const method = descriptor.value;
 
       descriptor.value = (...args: any[]) => {
         args.push(item.value);
@@ -82,8 +91,8 @@ export default class Handler<T> {
    * @param  {string} key
    * @returns T
    */
-  public get(key: string): storeItem {
-    const item: storeItem = this.store.find(item => item.key === key);
+  public get(key: string): StoreItem {
+    const item: StoreItem = this.store.find(i => i.key === key);
 
     if (!item) {
       throw Error(`No item with key: ${key}`);

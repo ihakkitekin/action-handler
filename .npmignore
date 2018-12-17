@@ -4,5 +4,4 @@ tsconfig.json
 tslint.json
 jest.config.js
 .babelrc
-.gitignore
 .prettierrc
