@@ -1,4 +1,5 @@
 src
+.vscode
 tests
 tsconfig.json
 tslint.json

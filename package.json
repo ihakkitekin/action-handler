@@ -29,6 +29,9 @@
     "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/lodash": "^4.14.119",
+    "lodash": "^4.17.11"
+  },
   "types": "lib/index.d.ts"
 }

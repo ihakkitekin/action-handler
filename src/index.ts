@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export interface HandlerOptions<T> {
   applicants: T[];
   identifier: T;
@@ -60,7 +62,7 @@ export default class Handler<T> {
    * @returns Function
    */
   public injectArgument(key: string): injectArgumentResultType {
-    const item: StoreItem = this.store.find(i => i.key === key);
+    const item: StoreItem = _.find(this.store, i => i.key === key);
 
     if (!item) {
       throw Error(`No item with key: ${key}`);
@@ -92,7 +94,7 @@ export default class Handler<T> {
    * @returns T
    */
   public get(key: string): StoreItem {
-    const item: StoreItem = this.store.find(i => i.key === key);
+    const item: StoreItem = _.find(this.store, i => i.key === key);
 
     if (!item) {
       throw Error(`No item with key: ${key}`);
@@ -122,7 +124,8 @@ export default class Handler<T> {
    * @returns T
    */
   private getWinner(applicantToFind): T {
-    return this.applicants.find(
+    return _.find(
+      this.applicants,
       (applicant): boolean => {
         return (
           applicant[this.identifierProp] ===
