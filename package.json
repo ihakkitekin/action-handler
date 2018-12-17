@@ -29,8 +29,6 @@
     "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2"
   },
-  "dependencies": {
-    "reflect-metadata": "^0.1.12"
-  },
+  "dependencies": {},
   "types": "lib/index.d.ts"
 }
