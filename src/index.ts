@@ -37,7 +37,7 @@ export default class Handler<T> {
 
   /**
    * Registers an argument from given arguments based on the winner applicant
-   * @param  {T[]} ...args
+   * @param  {T[]} args
    * @returns T
    */
   public register<T>(key: string, ...args: T[]): void {
@@ -47,8 +47,8 @@ export default class Handler<T> {
 
   /**
    * Injects an argument to given function based on given key
-   * @param  {T[]} ...args
-   * @returns T
+   * @param  {string} key
+   * @returns Function
    */
   public injectArgument(key: string): Function {
     const item: storeItem = this.store.find(item => item.key === key);
@@ -79,7 +79,7 @@ export default class Handler<T> {
 
   /**
    * Returns an argument with given key
-   * @param  {T[]} ...args
+   * @param  {string} key
    * @returns T
    */
   public get(key: string): storeItem {
@@ -109,7 +109,7 @@ export default class Handler<T> {
   /**
    * Returns the winner element of the applicants array based on the prop that
    * is defined in Init
-   * @param  {result of the array operation} applicantToFind
+   * @param  {T} applicantToFind
    * @returns T
    */
   private getWinner(applicantToFind): T {
