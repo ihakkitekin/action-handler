@@ -78,7 +78,7 @@ export default class Handler<T> {
   }
 
   /**
-   * Injects an argument to given function based on given key
+   * Returns an argument with given key
    * @param  {T[]} ...args
    * @returns T
    */
