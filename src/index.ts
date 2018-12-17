@@ -1,5 +1,3 @@
-import "reflect-metadata";
-
 export type HandlerOptions<T> = {
   applicants: T[];
   identifier: T;
@@ -12,10 +10,10 @@ type storeItem = { key: string; value: any };
 export default class Handler<T> {
   private winnerIndex: number;
   private store: storeItem[];
-  applicants: T[];
-  defaultIdentifier?: T;
-  identifier: T;
-  identifierProp: string;
+  private applicants: T[];
+  private defaultIdentifier?: T;
+  private identifier: T;
+  private identifierProp: string;
 
   constructor(options: HandlerOptions<T>) {
     // bind methods
@@ -77,6 +75,21 @@ export default class Handler<T> {
     };
 
     return result;
+  }
+
+  /**
+   * Injects an argument to given function based on given key
+   * @param  {T[]} ...args
+   * @returns T
+   */
+  public get(key: string): storeItem {
+    const item: storeItem = this.store.find(item => item.key === key);
+
+    if (!item) {
+      throw Error(`No item with key: ${key}`);
+    }
+
+    return item;
   }
 
   /**

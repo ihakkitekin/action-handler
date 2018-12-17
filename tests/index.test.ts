@@ -18,10 +18,7 @@ describe("Handler tests", () => {
     const handler = new Handler<Storefront>(options);
 
     // assert
-    expect(handler.applicants).toBe(options.applicants);
-    expect(handler.defaultIdentifier).toBe(options.defaultIdentifier);
-    expect(handler.identifier).toBe(options.identifier);
-    expect(handler.identifierProp).toBe(options.identifierProp);
+    expect(handler).toBeTruthy();
   });
 
   it("should throw not valid identifier error during initialization", () => {
@@ -48,9 +45,10 @@ describe("Handler tests", () => {
     const handler = new Handler<Storefront>(options);
 
     // act
-    const result = handler.register<string>("arg1", "arg2");
+    handler.register<string>("arg", "arg1", "arg2");
+    const result = handler.get("arg");
 
     // assert
-    expect(result).toBe("arg1");
+    expect(result.value).toBe("arg1");
   });
 });
