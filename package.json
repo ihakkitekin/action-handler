@@ -14,7 +14,7 @@
     "prepublishOnly": "npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push origin && git push origin --tags"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
